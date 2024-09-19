@@ -203,6 +203,9 @@
 
 (defun runs-every-frame ()
 
+(if  (and (= (-> *target* current-level name) 'firecanyon) (process-by-ename "crate-1032")  (= (-> *target* fact buzzer) 6.0))
+ (set! (-> *target* fact buzzer) 5.0)
+)
 (if (= *continue-30-second-ago* (the-as continue-point #f))
 (set! *continue-30-second-ago* (get-continue-by-name *game-info* "training-start"))
 )

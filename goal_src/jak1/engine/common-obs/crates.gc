@@ -444,7 +444,7 @@
   :init-specs ((:scalevel-x (meters -0.0033333334)) (:scalevel-y :copy scalevel-x) (:fade-a -3.4)))
 
 (defbehavior crate-standard-event-handler crate ((arg0 process) (arg1 int) (arg2 symbol) (arg3 event-message-block))
-  (case arg2
+ (case arg2
     (('attack)
      (let ((s4-0 (-> arg3 param 2))
            (s5-0 (-> arg3 param 3)))
@@ -456,33 +456,31 @@
                       *target*
                       (not (logtest? (-> *target* control root-prim prim-core action) (collide-action racer))))
                (return #f))
+
+               (when  (and *target* (>= (-> *target* fact buzzer) 6.0) (on-slide-flut-racer?) )
+               (when (not (logtest? (-> (the-as crate (process-by-ename "crate-1032")) entity extra perm status) (entity-perm-status user-set-from-cstage)))
+
+
+;; (set! (-> gp-0 user-int8 0) 2)
+
+
+
+               (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status user-set-from-cstage) #f)
+               (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status dead) #f)
+               (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status complete) #f)
+               (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status bit-4) #f)
+               )
+
+
+               (oh-shit-an-orb)
+               (return #f)
+               )
+
+
              (increment-success-for-hint (text-id sidekick-hint-crate-iron))
              (increment-success-for-hint (text-id training-ironcrate))
              (send-event arg0 'get-attack-count 1)
-
-
-                          (if  (or
-                          (= (-> self fact pickup-type) (pickup-type buzzer))
-                          )
-    (begin
-     (format #t "L 466 buzzer crates")
-     (go-virtual die #f (the-as int s5-0))
-    )
-     (oh-shit-an-orb)
-
-
-             )
-
-
-            ;;  (if  (and (not (on-slide-flut-racer?)) (!= (-> self fact pickup-type) (pickup-type buzzer)))
-
-            ;;  (go-virtual die #f (the-as int s5-0))
-            ;;               (begin
-            ;;  (format #t "L 464 crates")
-            ;;  (oh-shit-an-orb)
-            ;;               )
-            ;;  )
-             )
+             (go-virtual die #f (the-as int s5-0)))
             (else
              (when (and (!= s4-0 (-> self incomming-attack-id)) (= (-> self root trans y) (-> self base y)))
                (if (not (and (!= *kernel-boot-message* 'play) (= (-> *setting-control* current language) (language-enum japanese))))
@@ -517,6 +515,13 @@
             (go-virtual die #f (the-as int s5-0))
                       (begin (format #t "501 crates")
                        (oh-shit-an-orb)))
+
+
+
+
+
+
+
              )
             (else
              (when (and (!= s4-0 (-> self incomming-attack-id)) (= (-> self root trans y) (-> self base y)))
@@ -879,8 +884,8 @@
   (none))
 
 (defmethod check-dead ((this crate))
-  (if (>= (-> this entity extra perm user-int8 0) 1) (go (method-of-object this die) #t 0))
-  0
+  ;; (if (>= (-> this entity extra perm user-int8 0) 1) (go (method-of-object this die) #t 0))
+  ;; 0
   (go (method-of-object this wait))
   0
   (none))
