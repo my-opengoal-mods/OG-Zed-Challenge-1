@@ -469,10 +469,13 @@
                (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status dead) #f)
                (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status complete) #f)
                (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status bit-4) #f)
+               (uncollect-buzzer *game-info* (game-task firecanyon-buzzer) 5)
                )
 
 
+             (format #t "L 476 crate")
                (oh-shit-an-orb)
+                (format #t "L 476 crate")
                (return #f)
                )
 
@@ -514,7 +517,8 @@
                                  (if (and (not (on-slide-flut-racer?)) (!= (-> self fact pickup-type) (pickup-type buzzer)))
             (go-virtual die #f (the-as int s5-0))
                       (begin (format #t "501 crates")
-                       (oh-shit-an-orb)))
+                       (oh-shit-an-orb)
+                       (format #t "501 crates")))
 
 
 
@@ -729,7 +733,8 @@
           (pickup-type eco-blue)
           (pickup-type eco-yellow)
           (pickup-type eco-red)
-          (pickup-type fuel-cell))
+          ;;(pickup-type fuel-cell)
+          )
          (go-virtual special-contents-die)))
       (drop-pickup (-> self fact) #t *entity-pool* (the-as fact-info #f) arg1)
       (process-entity-status! self (entity-perm-status dead) #t)

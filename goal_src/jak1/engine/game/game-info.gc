@@ -341,6 +341,14 @@
   ;; buzzers mis-use their reminder bits as a bitfield of which ones have been collected
   (logtest? (get-reminder (get-task-control arg0) 0) (ash 1 arg1)))
 
+(defun uncollect-buzzer ((this game-info) (arg0 game-task) (arg1 int))
+  "Uncollect the arg1-th buzzer for the given buzzer task."
+  (let* ((task-control (get-task-control arg0))
+         (reminder-bits (get-reminder task-control 0))
+         (new-reminder (logand reminder-bits (lognot (ash 1 arg1)))))
+    ;; Save the new reminder bits using save-reminder
+    (save-reminder task-control 0 new-reminder)))
+
 (defmethod buzzer-count ((this game-info) (arg0 game-task))
   "How many buzzers do we have for this task?"
   (let ((v1-1 (get-reminder (get-task-control arg0) 0)) ;; buzzer bitmask

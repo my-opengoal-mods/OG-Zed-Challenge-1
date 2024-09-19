@@ -17,6 +17,7 @@
              (when (= (the-as pickup-type s4-0) (pickup-type money))
               (format #t "L18 handler")
              (oh-shit-an-orb)
+             (format #t "L18 handler")
              (return #f)
              )
 
