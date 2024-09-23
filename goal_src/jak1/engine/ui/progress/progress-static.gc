@@ -225,9 +225,9 @@
        :type
        game-option
        (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
        (new 'static 'game-option :option-type (game-option-type button) :name (text-id back) :scale #f)))
 
 (define *save-options*
@@ -236,9 +236,9 @@
        :type
        game-option
        (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
        (new 'static 'game-option :option-type (game-option-type button) :name (text-id back) :scale #f)))
 
 (define *save-options-title*
@@ -247,10 +247,10 @@
        :type
        game-option
        (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :scale #f)
-       (new 'static 'game-option :option-type (game-option-type button) :name (text-id continue-without-saving) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+     ;;   (new 'static 'game-option :option-type (game-option-type button) :scale #f)
+      ;; (new 'static 'game-option :option-type (game-option-type button) :name (text-id continue-without-saving) :scale #f)
        (new 'static 'game-option :option-type (game-option-type button) :name (text-id back) :scale #f)))
 
 ;; maps options to a progress screen

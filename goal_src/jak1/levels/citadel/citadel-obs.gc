@@ -861,7 +861,7 @@
          (if (-> self mushroom)
            (increment-success-for-hint (text-id citadel-generator))
            (increment-success-for-hint (text-id citadel-generator-no-mushroom)))
-         (if  (task-closed? (game-task village3-button) (task-status need-hint))  (go citb-generator-break) (oh-shit-an-orb))
+         (if  (task-closed? (game-task village3-button) (task-status need-hint))  (go citb-generator-break) (process-spawn-function process oh-shit-an-orb-proc))
 
          )
         (('trigger) #t)))

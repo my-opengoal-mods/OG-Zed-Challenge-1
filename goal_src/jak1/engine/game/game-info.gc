@@ -349,6 +349,26 @@
     ;; Save the new reminder bits using save-reminder
     (save-reminder task-control 0 new-reminder)))
 
+(declare-type crate process-drawable)
+(defun reset-buzzer ((e entity-actor))
+  (when (and (= (-> e etype) crate)
+             (or (= (res-lump-struct e 'crate-type symbol) 'iron)
+                 (= (the pickup-type (-> (res-lump-data e 'eco-info (pointer int32)) 0)) (pickup-type buzzer)))
+             (logtest? (-> e extra perm status) (entity-perm-status complete user-set-from-cstage dead)))
+    (let* ((eco-info (res-lump-data e 'eco-info (pointer int32)))
+           (amount (-> eco-info 1))
+           (index (sar (the int amount) 16))
+           (ctrl (get-task-control (-> e task)))
+           (reminder (get-reminder ctrl 0)))
+      (when (logtest? reminder (ash 1 index))
+        (save-reminder ctrl (logclear reminder (ash 1 index)) 0)
+        (logclear! (-> e extra perm status) (entity-perm-status complete user-set-from-cstage dead))
+        (set! (-> e extra perm user-uint8 0) 0)
+        (set! (-> e extra perm user-uint8 1) 0)
+        (1-! (-> *target* fact buzzer))
+        (1-! (-> *game-info* buzzer-total))
+        (birth! e)))))
+
 (defmethod buzzer-count ((this game-info) (arg0 game-task))
   "How many buzzers do we have for this task?"
   (let ((v1-1 (get-reminder (get-task-control arg0) 0)) ;; buzzer bitmask

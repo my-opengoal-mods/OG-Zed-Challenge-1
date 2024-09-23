@@ -382,7 +382,14 @@
     (set! (-> this particles 19 init-pos x) (the float (- (- 202 (adjust-pos s4-0 150)) (-> this left-x-offset))))
     (set! (-> this particles 20 init-pos x) (the float (- (+ (adjust-pos s4-0 100) 202) (-> this left-x-offset))))
     (set! (-> this particles 21 init-pos x) (the float (- (- 202 (adjust-pos s4-0 50)) (-> this left-x-offset))))
-    (set! (-> this particles 22 init-pos x) (the float (- (+ s4-0 202) (-> this left-x-offset)))))
+    (set! (-> this particles 22 init-pos x) (the float (- (+ s4-0 202) (-> this left-x-offset))))
+
+      (when #t
+      (set! (-> this particles 20 init-pos x) (the float (- (+ (adjust-pos s4-0 100) 202) (-> this left-x-offset))))
+      (set! (-> this particles 21 init-pos x) (the float (- (- 202 (adjust-pos s4-0 50)) (-> this left-x-offset))))
+      (set! (-> this particles 22 init-pos x) (the float (- (+ s4-0 202) (-> this left-x-offset)))))
+
+    )
   (cond
     ((= (-> *setting-control* current video-mode) 'pal)
      (set! (-> this particles 21 init-pos y) 256.0)
@@ -409,7 +416,7 @@
       (let ((v1-37 arg0)) (set! (-> v1-37 height) (the float 20)))
       (let ((s3-3 (-> this card-info))
             (s2-0 23))
-        (dotimes (s1-0 4)
+        (dotimes (s1-0 1)
           (set! (-> arg0 origin x) (the float (- 41 (-> this left-x-offset))))
           (set! (-> arg0 flags) (font-flags shadow kerning middle middle-vert large))
           (let ((a0-17 arg0)) (set! (-> a0-17 color) (font-color default)))

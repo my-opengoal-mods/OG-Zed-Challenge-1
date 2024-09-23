@@ -47,6 +47,64 @@
 
 (defun is-cell-ok ((task game-task))
 
+(if (= task (game-task village1-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-3147")))
+)
+
+(if (= task (game-task beach-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-213")))
+)
+
+(if (= task (game-task jungle-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-688")))
+)
+
+(if (= task (game-task firecanyon-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-1032")))
+)
+
+(if (= task (game-task village2-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-3128")))
+)
+
+(if (= task (game-task rolling-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-2199")))
+)
+
+(if (= task (game-task swamp-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-762")))
+)
+
+(if (= task (game-task ogre-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-2994")))
+)
+
+(if (= task (game-task village3-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-3126")))
+)
+
+(if (= task (game-task snow-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-980")))
+)
+
+(if (= task (game-task cave-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-2685")))
+)
+
+(if (= task (game-task lavatube-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-3025")))
+)
+
+(if (= task (game-task citadel-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-2997")))
+)
+
+(if (= task (game-task misty-buzzer))
+(reset-buzzer (the entity-actor (entity-by-name "crate-672")))
+)
+
+
+
 (if (= task (game-task firecanyon-end))
 (return #t)
 )
@@ -95,18 +153,10 @@
   (none)
 )
 
-(define *started-oh-shit-orb?* #f)
+
 (defun oh-shit-an-orb ()
 ;;punish a player if they get a orb
- (format #t "oh shit an orb~%")
-(when (and *target* (not *started-oh-shit-orb?*))
-(update-extra-collect-in-mem 1)
 
-(send-event *target* 'continue *continue-30-second-ago*)
-
-
-)
-(set! *started-oh-shit-orb?* #f)
 (none))
 
 (defun should-cell-autosave? ((task game-task))
@@ -132,7 +182,8 @@
 (when (> (/ (current-time) 300.0) 1020)
 (when (= (mod (- (/  (current-time) (seconds 1)) 1000) TIME_TO_PLAY_SAVE_SOUND) 0)
 (when (and (not *are-we-playing-save-hint*) (= (rand-vu-int-range 0 3) 2))
-(play-sound-file "a.mp3" 100)
+(auto-save-command 'auto-save 0 0 *default-pool*)
+;;(play-sound-file "a.mp3" 100)
 (set! *are-we-playing-save-hint* #t)
 )
 )
@@ -185,11 +236,18 @@
 
 (define *test-val* 0)
 
+
+
 (defun runs-every-frame ()
 
-(if  (and (= (-> *target* current-level name) 'firecanyon) (process-by-ename "crate-1032")  (= (-> *target* fact buzzer) 6.0))
- (set! (-> *target* fact buzzer) 5.0)
+ (update-cutscene-stuff)
+(when (not *sound-proc-spawned?*)
+  (process-spawn-function process sound-process-func)
+  (set! *sound-proc-spawned?* #t)
 )
+;; (if  (and (= (-> *target* current-level name) 'firecanyon) (process-by-ename "crate-1032")  (= (-> *target* fact buzzer) 6.0))
+;;  (set! (-> *target* fact buzzer) 5.0)
+;; )
 (if (= *continue-30-second-ago* (the-as continue-point #f))
 (set! *continue-30-second-ago* (get-continue-by-name *game-info* "training-start"))
 )

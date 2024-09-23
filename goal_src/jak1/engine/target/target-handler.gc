@@ -3,6 +3,65 @@
 (bundles "ENGINE.CGO" "GAME.CGO")
 (require "engine/target/logic-target.gc")
 (define-extern target-powerup-effect (function symbol none :behavior target))
+(defun-extern update-extra-collect-in-mem int none)
+(define-extern *continue-30-second-ago*  continue-point)
+(define *started-oh-shit-orb?* #f)
+(define *currentSpoolName* "")
+(define *currentCutsceneFrame* 0)
+(defbehavior oh-shit-an-orb-proc process ()
+ (format #t "oh shit an orb~%")
+(when (and *target* (not *started-oh-shit-orb?*))
+(update-extra-collect-in-mem 1)
+(set! (-> *game-info* current-continue) *continue-30-second-ago*)
+(auto-save-command 'auto-save 0 0 *default-pool*)
+(send-event *target* 'continue *continue-30-second-ago*)
+
+
+)
+
+(suspend)
+)
+
+(defun update-cutscene-stuff ()
+
+  (when (handle->process (-> *art-control* spool-lock))(with-proc ((handle->process (-> *art-control* spool-lock))) (set! *currentCutsceneFrame* (the
+ int (ja-aframe-num 0))))
+  (set! *currentSpoolName* (-> *art-control* active-stream))
+ )
+ (none))
+
+(define *sound-proc-spawned?* #f)
+(defbehavior sound-process-func process ()
+(while #t
+
+
+
+(let ((current-timea (current-time))
+      (chem-bool #f))
+(cond
+((and (string= *currentSpoolName* "ndi-intro") (= *currentCutsceneFrame* 420))
+   (play-sound-file "zed.mp3" (the int (-> *setting-control* default sfx-volume)))
+   (until (time-elapsed? current-timea (seconds 1))
+   (suspend)
+   )
+
+
+)
+
+((and #t (string= *currentSpoolName* "sage-intro-sequence-a") (= *currentCutsceneFrame* 0))
+   (play-sound-file "data/custom_assets/jak1/SND/fart-intro.mp3" 100)
+   (until (time-elapsed? current-timea (seconds 1))
+   (suspend)
+   )
+
+)
+)
+)
+(suspend)
+)
+
+)
+
 
 (define *global-continue* #f)
 ;; DECOMP BEGINS
@@ -16,7 +75,7 @@
              (f28-0 (the-as float (-> arg3 param 1))))
              (when (= (the-as pickup-type s4-0) (pickup-type money))
               (format #t "L18 handler")
-             (oh-shit-an-orb)
+             (process-spawn-function process oh-shit-an-orb-proc)
              (format #t "L18 handler")
              (return #f)
              )

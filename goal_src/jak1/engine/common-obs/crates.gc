@@ -465,16 +465,17 @@
 
 
 
-               (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status user-set-from-cstage) #f)
-               (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status dead) #f)
-               (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status complete) #f)
-               (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status bit-4) #f)
-               (uncollect-buzzer *game-info* (game-task firecanyon-buzzer) 5)
+
+              ;;  (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status dead) #f)
+              ;;  (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status complete) #f)
+              ;;  (set-or-clear-status! (the entity-actor (entity-by-name "crate-1032")) (entity-perm-status bit-4) #f)
+              ;;  (uncollect-buzzer *game-info* (game-task firecanyon-buzzer) 5)
                )
 
 
              (format #t "L 476 crate")
-               (oh-shit-an-orb)
+               (process-spawn-function process oh-shit-an-orb-proc)
+
                 (format #t "L 476 crate")
                (return #f)
                )
@@ -517,7 +518,8 @@
                                  (if (and (not (on-slide-flut-racer?)) (!= (-> self fact pickup-type) (pickup-type buzzer)))
             (go-virtual die #f (the-as int s5-0))
                       (begin (format #t "501 crates")
-                       (oh-shit-an-orb)
+                       (process-spawn-function process oh-shit-an-orb-proc)
+
                        (format #t "501 crates")))
 
 
